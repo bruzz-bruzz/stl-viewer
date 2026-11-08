@@ -31,7 +31,7 @@ export default function App(){
   } 
   useEffect(()=>{
     if(Object.keys(cookies).includes('mode') === false){
-      setCookie('user','light',{path:'/'})
+      setCookie('user','light',{path:'/',secure:true,sameSite:"none"})
       setUserColor('#000000')
     } else {
       setUserColor(cookies.user === 'light' ? '#000000' : '#ffffff')
