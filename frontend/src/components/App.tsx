@@ -156,6 +156,7 @@ export default function App(){
           <OrbitControls makeDefault />
         </Canvas>
       </div>
+      <Github repoURL={"https://github.com/bruzz-bruzz/stl-viewer"} profileURL={"https://github.com/bruzz-bruzz"} />
     </div>
   )
 }
