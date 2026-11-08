@@ -146,7 +146,7 @@ export default function App(){
           </div>
         </div>
       </div>
-      <div className={`border-2 rounded-2xl w-full max-w-5xl h-[500px] ${cookies.user === 'light' ? 'bg-white text-black border-gray-200' : 'bg-gray-900 text-white border-gray-700'} overflow-hidden shadow-lg`}>
+      <div className={`border-2 rounded-2xl w-full max-w-5xl h-[500px] mx-auto ${cookies.user === 'light' ? 'bg-white text-black border-gray-200' : 'bg-gray-900 text-white border-gray-700'} overflow-hidden shadow-lg`}>
         <Canvas camera={{ position: [50, 50, 50], fov: 70 }}>
           <ambientLight intensity={ambientLightIntensity} />
           <directionalLight position={directionalLightPosition} intensity={directionalLightIntensity} />
