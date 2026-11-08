@@ -30,13 +30,13 @@ export default function App(){
     setUserColor(cookies.user === 'light' ? '#000000' : '#ffffff')
   } 
   useEffect(()=>{
-    if(Object.keys(cookies).includes('mode') === false){
+    if (!cookies.user) {
       setCookie('user','light',{path:'/',secure:true,sameSite:"none",maxAge: 315360000, })
       setUserColor('#000000')
     } else {
       setUserColor(cookies.user === 'light' ? '#000000' : '#ffffff')
     }
-  },[])
+  },[cookies.user, setCookie])
   return (
     <div className={`min-h-screen p-4 ${cookies.user === 'light' ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
     <div className='flex flex-col items-center gap-6'>
