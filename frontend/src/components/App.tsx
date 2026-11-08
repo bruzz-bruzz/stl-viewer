@@ -32,7 +32,7 @@ export default function App(){
     }
   },[])
   return (
-    <div className={`min-h-screen p-4 ${cookies.user === 'light' ? 'bg-white text-black' : 'bg-gray-800 text-white'}`}>
+    <div className={`min-h-screen p-4 ${cookies.user === 'light' ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
     <div className='flex flex-col items-center gap-6'>
       <h1 className="text-4xl font-extrabold tracking-tight">STL Viewer</h1>
       <button 
@@ -40,33 +40,33 @@ export default function App(){
         onClick={()=>{
         setCookie('user',cookies.user === 'light' ? 'dark' : 'light',{path:'/'})
       }}>Toggle Mode</button>
-      <div className="border border-gray-300 dark:border-gray-600 p-6 rounded-2xl w-full max-w-md bg-gray-50 dark:bg-gray-900 shadow-sm">
+      <div className={`border ${cookies.user === 'light' ? 'border-gray-300 bg-gray-50' : 'border-gray-600 bg-gray-900'} p-6 rounded-2xl w-full max-w-md shadow-sm`}>
         <h2 className="text-lg font-semibold mb-3">Upload STL File</h2>
-        <p className="text-sm text-gray-500 mb-4">File Size: {fileSize} KB</p>
-        <input 
-          type="file" 
-          className="block w-full text-sm text-gray-600 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" 
-          onChange={(e)=>{
-          setUserFile(e.target.files !== null ? e.target.files[0] : null)
-          readFile(e.target.files !== null ? e.target.files[0] : null)
-          }}/>
+        <p className={`text-sm ${cookies.user === 'light' ? 'text-gray-500' : 'text-gray-400'} mb-4`}>File Size: {fileSize} KB</p>
+          <input 
+            type="file" 
+            className={`block w-full text-sm ${cookies.user === 'light' ? 'text-gray-600' : 'text-gray-400'} file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400`} 
+            onChange={(e)=>{
+            setUserFile(e.target.files !== null ? e.target.files[0] : null)
+            readFile(e.target.files !== null ? e.target.files[0] : null)
+            }}/>
       </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-5xl bg-white/10 p-6 rounded-lg">
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Model Color</label>
+            <label className={`text-sm font-medium ${cookies.user === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>Model Color</label>
             <input 
               type='color' 
               value={userColor} 
               onChange={(e)=>setUserColor(e.target.value)} 
-              className="w-full h-10 cursor-pointer rounded-lg border-2 border-gray-300 dark:border-gray-600 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none" 
+              className={`w-full h-10 cursor-pointer rounded-lg border-2 ${cookies.user === 'light' ? 'border-gray-300' : 'border-gray-600'} focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none`} 
             />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Model Position</p>
+            <p className={`text-sm font-medium ${cookies.user === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>Model Position</p>
             <div className="grid grid-cols-3 gap-2">
               {(['X', 'Y', 'Z'] as const).map((axis, i) => (
                 <div key={axis}>
-                  <label className="text-xs text-gray-500 dark:text-gray-400">{axis}</label>
+                  <label className={`text-xs ${cookies.user === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>{axis}</label>
                   <input 
                     type='number' 
                     value={userPosition[i]} 
@@ -75,18 +75,18 @@ export default function App(){
                       newArr[i] = parseFloat(e.target.value)
                       return newArr as [number,number,number]
                     })} 
-                    className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none" 
+                    className={`w-full p-2 rounded-lg border ${cookies.user === 'light' ? 'border-gray-300 bg-white' : 'border-gray-600 bg-gray-800'} text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none`} 
                   />
                 </div>
               ))}
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Model Rotation</p>
+            <p className={`text-sm font-medium ${cookies.user === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>Model Rotation</p>
             <div className="grid grid-cols-3 gap-2">
               {(['X', 'Y', 'Z'] as const).map((axis, i) => (
                 <div key={axis}>
-                  <label className="text-xs text-gray-500 dark:text-gray-400">{axis}</label>
+                  <label className={`text-xs ${cookies.user === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>{axis}</label>
                   <input 
                     type='number' 
                     value={userRotation[i]} 
@@ -95,39 +95,39 @@ export default function App(){
                       newArr[i] = parseFloat(e.target.value)
                       return newArr as [number,number,number]
                     })} 
-                    className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none" 
+                    className={`w-full p-2 rounded-lg border ${cookies.user === 'light' ? 'border-gray-300 bg-white' : 'border-gray-600 bg-gray-800'} text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none`} 
                   />
                 </div>
               ))}
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Light Settings</p>
+            <p className={`text-sm font-medium ${cookies.user === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>Light Settings</p>
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="text-xs text-gray-500 dark:text-gray-400">Ambient Intensity</label>
+                <label className={`text-xs ${cookies.user === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>Ambient Intensity</label>
                 <input 
                   type='number' 
                   value={ambientLightIntensity} 
                   onChange={(e)=>setAmbientLightIntensity(Math.max(0,parseFloat(e.target.value)))} 
-                  className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                  className={`w-full p-2 rounded-lg border ${cookies.user === 'light' ? 'border-gray-300 bg-white' : 'border-gray-600 bg-gray-800'} text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none`}
                 />
               </div>
               <div>
-                <label className="text-xs text-gray-500 dark:text-gray-400">Dir. Intensity</label>
+                <label className={`text-xs ${cookies.user === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>Dir. Intensity</label>
                 <input 
                   type='number' 
                   value={directionalLightIntensity} 
                   onChange={(e)=>setDirectionalLightIntensity(Math.max(0,parseFloat(e.target.value)))} 
-                  className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                  className={`w-full p-2 rounded-lg border ${cookies.user === 'light' ? 'border-gray-300 bg-white' : 'border-gray-600 bg-gray-800'} text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none`}
                 />
               </div>
             </div>
-            <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mt-2">Directional Light Position</p>
+            <p className={`text-xs font-medium ${cookies.user === 'light' ? 'text-gray-700' : 'text-gray-300'} mt-2`}>Directional Light Position</p>
             <div className="grid grid-cols-3 gap-2">
               {(['X', 'Y', 'Z'] as const).map((axis, i) => (
                 <div key={axis}>
-                  <label className="text-xs text-gray-500 dark:text-gray-400">{axis}</label>
+                  <label className={`text-xs ${cookies.user === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>{axis}</label>
                   <input 
                     type='number' 
                     value={directionalLightPosition[i]} 
@@ -138,7 +138,7 @@ export default function App(){
                         return newArr as [number,number,number]
                       })
                     }} 
-                    className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                    className={`w-full p-2 rounded-lg border ${cookies.user === 'light' ? 'border-gray-300 bg-white' : 'border-gray-600 bg-gray-800'} text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none`}
                   />
                 </div>
               ))}
@@ -151,12 +151,12 @@ export default function App(){
           <ambientLight intensity={ambientLightIntensity} />
           <directionalLight position={directionalLightPosition} intensity={directionalLightIntensity} />
           <group>
-            <Model url={userFile ? fileUrl : '/public/placeholder.stl'} color={userColor} position={userPosition} rotation={userRotation} />
+            <Model url={userFile ? fileUrl : '/placeholder.stl'} color={userColor} position={userPosition} rotation={userRotation} />
           </group>
           <OrbitControls makeDefault />
         </Canvas>
       </div>
-      <Github repoURL={"https://github.com/bruzz-bruzz/stl-viewer"} profileURL={"https://github.com/bruzz-bruzz"} />
+      <Github mode={cookies.user} repoURL={"https://github.com/bruzz-bruzz/stl-viewer"} profileURL={"https://github.com/bruzz-bruzz"} />
     </div>
   )
 }

@@ -1,0 +1,95 @@
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-5xl bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Model Color</label>
+            <input 
+              type="color" 
+              value={userColor} 
+              onChange={(e)=>setUserColor(e.target.value)} 
+              className="w-full h-10 cursor-pointer rounded-lg border-2 border-gray-300 dark:border-gray-600 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none" 
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Position (X, Y, Z)</p>
+            <div className="grid grid-cols-3 gap-2">
+              {([0, 1, 2] as const).map((i) => (
+                <input
+                  key={i}
+                  type="number"
+                  value={userPosition[i]}
+                  onChange={(e) => {
+                    const val = parseFloat(e.target.value)
+                    setUserPosition(prev => {
+                      const next = [...prev] as [number, number, number]
+                      next[i] = val
+                      return next
+                    })
+                  }}
+                  className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Rotation (X, Y, Z)</p>
+            <div className="grid grid-cols-3 gap-2">
+              {([0, 1, 2] as const).map((i) => (
+                <input
+                  key={i}
+                  type="number"
+                  value={userRotation[i]}
+                  onChange={(e) => {
+                    const val = parseFloat(e.target.value)
+                    setUserRotation(prev => {
+                      const next = [...prev] as [number, number, number]
+                      next[i] = val
+                      return next
+                    })
+                  }}
+                  className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Light Settings</p>
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <label className="text-xs text-gray-500 dark:text-gray-400">Ambient</label>
+                <input 
+                  type="number" 
+                  value={ambientLightIntensity} 
+                  onChange={(e)=>setAmbientLightIntensity(Math.max(0,parseFloat(e.target.value)))} 
+                  className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-gray-500 dark:text-gray-400">Dir.</label>
+                <input 
+                  type="number" 
+                  value={directionalLightIntensity} 
+                  onChange={(e)=>setDirectionalLightIntensity(Math.max(0,parseFloat(e.target.value)))} 
+                  className="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="border-2 rounded-2xl w-full max-w-5xl h-[500px] border-gray-200 dark:border-gray-700 overflow-hidden shadow-lg bg-gray-50 dark:bg-gray-800">
+        <Canvas camera={{ position: [50, 50, 50], fov: 70 }}>
+          <ambientLight intensity={ambientLightIntensity} />
+          <directionalLight position={directionalLightPosition} intensity={directionalLightIntensity} />
+          <group>
+            <Model url={userFile ? fileUrl : "/placeholder.stl"} color={userColor} position={userPosition} rotation={userRotation} />
+          </group>
+          <OrbitControls makeDefault />
+        </Canvas>
+      </div>
+      <Github repoURL={"https://github.com/bruzz-bruzz/stl-viewer"} profileURL={"https://github.com/bruzz-bruzz"} />
+    </div>
+    </div>
+    </div>
+  )
+}
