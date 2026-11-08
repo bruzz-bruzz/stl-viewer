@@ -27,7 +27,7 @@ export default function App(){
     setAmbientLightIntensity(0.5)
     setDirectionalLightIntensity(1)
     setDirectionalLightPosition([10,10,5])
-    setUserColor('#000000')
+    setUserColor(cookies.user === 'light' ? '#000000' : '#ffffff')
   } 
   useEffect(()=>{
     if(Object.keys(cookies).includes('mode') === false){
