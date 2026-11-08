@@ -22,6 +22,12 @@ export default function App(){
     }
     setFileSize(parseFloat((f.size / 1024).toFixed(2)))
     setFileUrl(URL.createObjectURL(f))
+    setUserPosition([0,0,0])
+    setUserRotation([0,0,0])
+    setAmbientLightIntensity(0.5)
+    setDirectionalLightIntensity(1)
+    setDirectionalLightPosition([10,10,5])
+    setUserColor('#000000')
   } 
   useEffect(()=>{
     if(Object.keys(cookies).includes('mode') === false){
